@@ -16,7 +16,7 @@ public class LifeManager : MonoBehaviour
 
 	public void EggsDestroy()
 	{
-		if(isRebiteActive)
+		if (isRebiteActive)
 		{
 			TakingAwayLife(1);
 		}
@@ -36,9 +36,18 @@ public class LifeManager : MonoBehaviour
 				_numberLife++;
 			}
 		}
-		if(_numberLife== LifeImages.Count)
+		if (_numberLife == LifeImages.Count)
 		{
 			GameOverManager.SetNewRecord(scoreManager.Score);
+		}
+	}
+
+	public void ActivateLife()
+	{
+		for (int i = 0; i < LifeImages.Count; i++)
+		{
+			LifeImages[i].color = ActiveColor;
+			_numberLife--;
 		}
 	}
 }

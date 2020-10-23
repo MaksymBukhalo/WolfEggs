@@ -12,6 +12,7 @@ public class SpawnEggs : MonoBehaviour
 	private Transform _spawnpoint;
 	[SerializeField]
 	private GameObject _eggsPrefab;
+	private float _timeLifeEggs =10f;
 
 
 	public void StartSpawn()
@@ -24,6 +25,6 @@ public class SpawnEggs : MonoBehaviour
 	{
 		GameObject newEgg = Instantiate(_eggsPrefab, _spawnpoint.position, _eggsPrefab.transform.rotation);
 		newEgg.GetComponent<Rigidbody>().AddForce(Vector3.left * ForcePower, ForceMode.VelocityChange);
-		Destroy(newEgg, 5f);
+		Destroy(newEgg, 10f);
 	}
 }

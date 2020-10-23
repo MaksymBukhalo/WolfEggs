@@ -8,17 +8,18 @@ public class SpawnerManager : MonoBehaviour
 	public ScoreManager ScoreManag;
 	public bool GameIsRunning;
 	public float _eggsSpwanCoolDown = 3;
-	private float _sizeValueInstatiateNewFoarse = 2;
+	private float _sizeValueInstatiateNewFoarse = 10;
 	private float _valueDecreaseCoolDown = 0.99f;
 	private float optimalForse = 2.5f;
 
 	private void Start()
 	{
-			StartCoroutine(SpawnerEggs());
+		StartCoroutine(SpawnerEggs());
 	}
 
 	private IEnumerator SpawnerEggs()
 	{
+		yield return new WaitForSeconds(5f);
 		while (GameIsRunning)
 		{
 			int NumberGutterList = Random.Range(0, 4);
@@ -34,20 +35,24 @@ public class SpawnerManager : MonoBehaviour
 		{
 			_eggsSpwanCoolDown = _eggsSpwanCoolDown * _valueDecreaseCoolDown;
 		}
-		if(ScoreManag.Score>_sizeValueInstatiateNewFoarse && GutterList[0].ForcePower<optimalForse)
+		if (ScoreManag.Score > _sizeValueInstatiateNewFoarse && GutterList[0].ForcePower < optimalForse)
 		{
-			for(int i =0;i<GutterList.Count;i++)
+			for (int i = 0; i < GutterList.Count; i++)
 			{
-				GutterList[i].ForcePower *= 1.3f ;
+				GutterList[i].ForcePower *= 1.3f;
 			}
 			_sizeValueInstatiateNewFoarse += _sizeValueInstatiateNewFoarse;
 		}
-		//else if (GutterList[0].ForcePower > 4)
-		//{
-		//	for (int i = 0; i < GutterList.Count; i++)
-		//	{
-		//		GutterList[i].ForcePower = 4;
-		//	}
-		//}
+	}
+
+	public void RestartGame()
+	{
+		for (int i = 0; i < GutterList.Count; i++)
+		{
+			GutterList[i].ForcePower = 1f;
+			_eggsSpwanCoolDown = 3f;
+			GameIsRunning = true;
+		}
+		StartCoroutine(SpawnerEggs());
 	}
 }
