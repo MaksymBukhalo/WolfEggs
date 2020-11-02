@@ -7,5 +7,4 @@ public class ScoreManager : MonoBehaviour
 {
     public TextMeshPro ScoreText;
     public int Score;
-
 }

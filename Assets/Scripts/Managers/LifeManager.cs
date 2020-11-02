@@ -8,15 +8,15 @@ public class LifeManager : MonoBehaviour
 	public Color ActiveColor;
 	public Color DeActiveColor;
 	public List<Image> LifeImages;
-	public bool isRebiteActive;
-	public GameOverMenuManager GameOverManager;
+	public bool isOsctrichEggs;
+	public EndGameMenuManager GameOverManager;
 	public ScoreManager scoreManager;
 
 	private int _numberLife = 0;
 
 	public void EggsDestroy()
 	{
-		if (isRebiteActive)
+		if (!isOsctrichEggs)
 		{
 			TakingAwayLife(1);
 		}
@@ -28,17 +28,20 @@ public class LifeManager : MonoBehaviour
 
 	private void TakingAwayLife(int numbersLife)
 	{
-		for (int i = 0; i < numbersLife; i++)
+		if (_numberLife < LifeImages.Count)
 		{
-			if (_numberLife < LifeImages.Count)
+			for (int i = 0; i < numbersLife; i++)
 			{
-				LifeImages[_numberLife].color = DeActiveColor;
-				_numberLife++;
+				if (_numberLife < LifeImages.Count)
+				{
+					LifeImages[_numberLife].color = DeActiveColor;
+					_numberLife++;
+				}
 			}
-		}
-		if (_numberLife == LifeImages.Count)
-		{
-			GameOverManager.SetNewRecord(scoreManager.Score);
+			if (_numberLife == LifeImages.Count)
+			{
+				GameOverManager.SetNewRecord(scoreManager.Score);
+			}
 		}
 	}
 
@@ -47,7 +50,7 @@ public class LifeManager : MonoBehaviour
 		for (int i = 0; i < LifeImages.Count; i++)
 		{
 			LifeImages[i].color = ActiveColor;
-			_numberLife--;
 		}
+		_numberLife = 0;
 	}
 }
