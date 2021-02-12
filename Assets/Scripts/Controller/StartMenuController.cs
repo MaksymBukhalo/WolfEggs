@@ -8,7 +8,7 @@ public class StartMenuController : MonoBehaviour
 	[SerializeField] private TextMeshPro _bestScore;
 	[SerializeField] private GameObject _startMenu;
 	[SerializeField] private GameObject _helpMenu;
-	[SerializeField] private SpawnerManager _spawnerManager;
+	[SerializeField] private EggsSpawnManager _spawnerManager;
 
 	private SaveRecords save = new SaveRecords();
 

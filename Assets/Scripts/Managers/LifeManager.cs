@@ -45,12 +45,35 @@ public class LifeManager : MonoBehaviour
 		}
 	}
 
+	public void AddLife(int numbersLife)
+	{
+		if (_numberLife < LifeImages.Count)
+		{
+			for (int i = 0; i < numbersLife; i++)
+			{
+				if (_numberLife < LifeImages.Count && _numberLife>-1)
+				{
+					LifeImages[_numberLife].color = ActiveColor;
+					_numberLife--;
+				}
+			}
+			if (_numberLife <0)
+			{
+				_numberLife = 0;
+			}
+			if (_numberLife == LifeImages.Count)
+			{
+				GameOverManager.SetNewRecord(scoreManager.Score);
+			}
+		}
+	}
+
 	public void ActivateLife()
 	{
-		for (int i = 0; i < LifeImages.Count; i++)
-		{
-			LifeImages[i].color = ActiveColor;
-		}
-		_numberLife = 0;
+			for (int i = 0; i < LifeImages.Count; i++)
+			{
+				LifeImages[i].color = ActiveColor;
+			}
+			_numberLife = 0;
 	}
 }

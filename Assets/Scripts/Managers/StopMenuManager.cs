@@ -7,7 +7,7 @@ public class StopMenuManager : MonoBehaviour
 {
 	public ScoreManager ScoreManag;
 	public TextMeshPro YourScore;
-	public SpawnerManager SpawnerManagerValue;
+	public EggsSpawnManager SpawnerManagerValue;
 	public GameObject StopMenu;
 	void Update()
 	{

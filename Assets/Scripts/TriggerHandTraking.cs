@@ -5,19 +5,20 @@ using UnityEngine;
 public class TriggerHandTraking : MonoBehaviour
 {
 	public GameObject Cap;
-	private void OnTriggerEnter(Collider other)
-	{
-		if(other.gameObject.layer == 16 || other.gameObject.layer == 17)
-		{
-			Cap.SetActive(true);
-		}
-	}
+	public GameObject SuperCap;
+	public SuperCapTrigger SuperCapTrigger;
 
-	private void OnTriggerExit(Collider other)
+	private void Update()
 	{
-		if (other.gameObject.layer == 16 || other.gameObject.layer == 17)
+		if(SuperCapTrigger.IsSuperCapActive)
 		{
 			Cap.SetActive(false);
+			SuperCap.SetActive(true);
+		}
+		else
+		{
+			SuperCap.SetActive(false);
+			Cap.SetActive(true);
 		}
 	}
 }

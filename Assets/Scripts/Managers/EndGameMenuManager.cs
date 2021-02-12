@@ -11,7 +11,7 @@ public class EndGameMenuManager : MonoBehaviour
 	[SerializeField] private TextMeshPro _bestScore;
 	[SerializeField] private TextMeshPro _youWin;
 	[SerializeField] private GameObject _gameOverMenu;
-	[SerializeField] private SpawnerManager _spawnerManager;
+	[SerializeField] private EggsSpawnManager _spawnerManager;
 	private int _record;
 	private SaveRecords save = new SaveRecords();
 

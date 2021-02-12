@@ -4,54 +4,73 @@ using UnityEngine;
 
 public class SpawnEggs : MonoBehaviour
 {
-
+	//public bool IsEctive;
 	public bool IsLeftSide;
 	public List<Material> MaterialsEggs;
 	public float ForcePower = 1f;
+	public string _nameDefaultEggs = "ChikenEgg";
+	public string _nameOstrichEggs = "OstrichEgg";
+	public string _nameFailEggs = "FailEgg";
+
 	[SerializeField] private Transform _spawnpoint;
-	public  GameObject _eggsPrefab;
-	private float _timeLifeEggs =10f;
+	[SerializeField] private Material _failledEggsMaterial;
+	[SerializeField] private SpawnerEggsList _eggsList;
+
 	private Transform _ostrichEggs;
 	private MeshRenderer _eggsMeshRender;
-
-	private void Start()
-	{
-		_eggsMeshRender = _eggsPrefab.GetComponent<MeshRenderer>();
-		_ostrichEggs = _eggsPrefab.transform;
-	}
+	private Rigidbody _eggRigidbody;
 
 	public void StartSpawnChikenEggs()
 	{
+		GameObject egg = SetEggSetings();
 		RandomNewColorEggs();
-		PushEggs();
+		egg.name = _nameDefaultEggs;
+		PushEggs(egg);
 	}
 
 	public void StartSpawnOstrichEggs()
 	{
+		GameObject egg = SetEggSetings();
+		_ostrichEggs = egg.transform;
 		_eggsMeshRender.material = MaterialsEggs[0];
 		_ostrichEggs.localScale = new Vector3(5, 5, 5);
-		PushEggs();
-		_ostrichEggs.localScale = new Vector3(2, 2, 2);
+		egg.name = _nameOstrichEggs;
+		PushEggs(egg);
 	}
 
-	private void PushEggs()
+	public void StartSpawnFailedEggs()
 	{
-		
-		GameObject newEgg = Instantiate(_eggsPrefab, _spawnpoint.position, _eggsPrefab.transform.rotation);
+		GameObject egg = SetEggSetings();
+		_eggsMeshRender.material = _failledEggsMaterial;
+		egg.name = _nameFailEggs;
+		PushEggs(egg);
+	}
+
+	private void PushEggs(GameObject egg)
+	{
+		egg.transform.position = _spawnpoint.position;
+		egg.transform.rotation = _spawnpoint.rotation;
 		if (IsLeftSide)
 		{
-			newEgg.GetComponent<Rigidbody>().AddForce(Vector3.up * ForcePower, ForceMode.VelocityChange);
+			_eggRigidbody.AddForce(Vector3.up * ForcePower, ForceMode.VelocityChange);
 		}
 		else
 		{
-			newEgg.GetComponent<Rigidbody>().AddForce(Vector3.down * ForcePower, ForceMode.VelocityChange);
+			_eggRigidbody.AddForce(Vector3.down * ForcePower, ForceMode.VelocityChange);
 		}
-		Destroy(newEgg, _timeLifeEggs);
 	}
 
 	private void RandomNewColorEggs()
 	{
 		int i = Random.Range(0, MaterialsEggs.Count);
 		_eggsMeshRender.material = MaterialsEggs[i];
+	}
+
+	private GameObject SetEggSetings()
+	{
+		GameObject egg = _eggsList.IntstatiateEggs();
+		_eggsMeshRender = egg.GetComponent<MeshRenderer>();
+		_eggRigidbody = egg.GetComponent<Rigidbody>();
+		return egg;
 	}
 }

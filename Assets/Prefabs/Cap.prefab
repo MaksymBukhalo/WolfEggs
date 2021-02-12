@@ -53,6 +53,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9156151, z: 1.1703268}
   m_Center: {x: 0, y: -0.042192582, z: 0.08516349}
+--- !u!1 &644261891228216070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2552232004421799729}
+  m_Layer: 0
+  m_Name: StartSpawnScorePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2552232004421799729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644261891228216070}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: -5.6, z: -8.1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_Children: []
+  m_Father: {fileID: 9004962254257548945}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &1902619387107711063
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +95,7 @@ GameObject:
   - component: {fileID: 5953474068242253371}
   - component: {fileID: 1947403512322165497}
   - component: {fileID: 2277975519592077052}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TopLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +115,7 @@ RectTransform:
   m_Children:
   - {fileID: 7295193499261924411}
   m_Father: {fileID: 9004962254257548945}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 120.3, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -164,7 +194,7 @@ GameObject:
   - component: {fileID: 4494952866043940698}
   - component: {fileID: 8516128499788819459}
   - component: {fileID: 4581767736406829900}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BottomLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +214,7 @@ RectTransform:
   m_Children:
   - {fileID: 981630592288388254}
   m_Father: {fileID: 9004962254257548945}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 250, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -262,7 +292,7 @@ GameObject:
   - component: {fileID: 7295193499261924411}
   - component: {fileID: 5292800214692414542}
   - component: {fileID: 4553625655351844505}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +367,7 @@ GameObject:
   - component: {fileID: 2920700329862605569}
   - component: {fileID: 1422415759488005687}
   - component: {fileID: 7980505955589513485}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: 10131_BaseballCap_v02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +513,7 @@ GameObject:
   - component: {fileID: 981630592288388254}
   - component: {fileID: 2331684192595958247}
   - component: {fileID: 3054760324292449282}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9004962254257548945}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,6 +657,7 @@ Transform:
   m_LocalScale: {x: 0.010000002, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 8073584670300363082}
+  - {fileID: 2552232004421799729}
   - {fileID: 8895370164669133875}
   - {fileID: 7770005333464517963}
   - {fileID: 6390975292603252820}
@@ -826,7 +857,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9004962254257548945}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8895370164669133876
 MeshFilter:
@@ -903,7 +934,12 @@ MonoBehaviour:
   aggsinGutter: {fileID: 8895370164669133872}
   ScoreManag: {fileID: 0}
   AddScoreValue: 1
-  Basket: {fileID: 9004962254257548945}
+  _startPointSpawnTextScoreTextScore: {fileID: 2552232004421799729}
+  _textScore: {fileID: 7590003481023226141, guid: 0f806b4531977fd419ca2304b0e322fa,
+    type: 3}
+  _lifeManager: {fileID: 0}
+  _basket: {fileID: 9004962254257548945}
+  _spawnerManager: {fileID: 0}
 --- !u!82 &8895370164669133872
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1009,7 +1045,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7770005333464517963}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Colidders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1034,5 +1070,5 @@ Transform:
   - {fileID: 3533035945063096670}
   - {fileID: 7078927978327536352}
   m_Father: {fileID: 9004962254257548945}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

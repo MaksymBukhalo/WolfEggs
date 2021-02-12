@@ -5,9 +5,17 @@ using UnityEngine;
 public class TriggerForEggsInGutter : MonoBehaviour
 {
 	public bool IsEggsInGutter;
-	int i = 0;
 
 	[SerializeField] private AudioSource _audioEggs;
+	[SerializeField] private SpawnEggs _spawnEggs;
+	private int i = 0;
+
+	public void RestartAudio()
+	{
+		IsEggsInGutter = false;
+		_audioEggs.Stop();
+		i = 0;
+	}
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -17,6 +25,7 @@ public class TriggerForEggsInGutter : MonoBehaviour
 			i++;
 		}
 	}
+
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.layer == 8)
@@ -35,9 +44,13 @@ public class TriggerForEggsInGutter : MonoBehaviour
 			{
 				_audioEggs.Stop();
 			}
-			if (other.gameObject.transform.localScale.x == 5)
+			if (other.gameObject.name == _spawnEggs._nameOstrichEggs)
 			{
 				other.gameObject.layer = 14;
+			}
+			else if (other.gameObject.name == _spawnEggs._nameFailEggs)
+			{
+				other.gameObject.layer = 19;
 			}
 			else
 			{

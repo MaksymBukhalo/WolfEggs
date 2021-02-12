@@ -17,14 +17,14 @@ TagManager:
   - Grababble
   - Basket
   - EggsCoin
-  - EggsInBusket
+  - EggsInBasket
   - Floor
   - EggsOstrich
   - SuperBusket
   - RightHandTracking
   - 'LeftHandTracking '
-  - 
-  - 
+  - EggsDestroy
+  - EggsFailed
   - 
   - 
   - 

@@ -26,7 +26,6 @@ namespace UnityEngine.EventSystems
     {
         [Tooltip("Object which points with Z axis. E.g. CentreEyeAnchor from OVRCameraRig")]
         public Transform rayTransform;
-
         public OVRCursor m_Cursor;
 
         [Tooltip("Gamepad button to act as gaze click")]
@@ -34,6 +33,8 @@ namespace UnityEngine.EventSystems
 
         [Tooltip("Keyboard button to act as gaze click")]
         public KeyCode gazeClickKey = KeyCode.Space;
+        public bool isEnter;
+        public bool isExit;
 
         [Header("Physics")]
         [Tooltip("Perform an sphere cast to determine correct depth for gaze pointer")]
@@ -853,8 +854,8 @@ namespace UnityEngine.EventSystems
         /// <returns></returns>
         virtual protected PointerEventData.FramePressState GetGazeButtonState()
         {
-            var pressed = Input.GetKeyDown(gazeClickKey) || OVRInput.GetDown(joyPadClickButton);
-            var released = Input.GetKeyUp(gazeClickKey) || OVRInput.GetUp(joyPadClickButton);
+            var pressed = Input.GetKeyDown(gazeClickKey) || OVRInput.GetDown(joyPadClickButton) || isEnter;
+            var released = Input.GetKeyUp(gazeClickKey) || OVRInput.GetUp(joyPadClickButton) || isExit;
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             pressed |= Input.GetMouseButtonDown(0);
@@ -862,11 +863,23 @@ namespace UnityEngine.EventSystems
 #endif
 
             if (pressed && released)
+            {
+                isEnter = false;
+                isExit = false;
                 return PointerEventData.FramePressState.PressedAndReleased;
+            }
             if (pressed)
+            {
+                isEnter = false;
                 return PointerEventData.FramePressState.Pressed;
+            }
             if (released)
+            {
+                isExit = false;
                 return PointerEventData.FramePressState.Released;
+            }
+                isEnter = false;
+                isExit = false;
             return PointerEventData.FramePressState.NotChanged;
         }
 
