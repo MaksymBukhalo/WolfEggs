@@ -3825,7 +3825,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnerManager
       value: 
-      objectReference: {fileID: 1539367211}
+      objectReference: {fileID: 1539367213}
     - target: {fileID: 8895370164669133873, guid: d92282afbeabbcf4aaffa9dc46b2979f,
         type: 3}
       propertyPath: _spawnerEggsList
@@ -4124,7 +4124,7 @@ MonoBehaviour:
   - {fileID: 1869013830}
   _eggsList: {fileID: 0}
   _scoreManager: {fileID: 1960284088}
-  _spawnerManagers: {fileID: 1539367211}
+  _spawnerManagers: {fileID: 0}
   _gameEndUI: {fileID: 1942758482}
   _gameStopUI: {fileID: 355590757}
   _uIHelp: {fileID: 642388331}
@@ -4803,7 +4803,7 @@ MonoBehaviour:
   _bestScore: {fileID: 2114097561}
   _startMenu: {fileID: 1858602958}
   _helpMenu: {fileID: 642388331}
-  _spawnerManager: {fileID: 1539367211}
+  _spawnerManager: {fileID: 1539367213}
 --- !u!1 &446917799
 GameObject:
   m_ObjectHideFlags: 0
@@ -5175,7 +5175,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnerManager
       value: 
-      objectReference: {fileID: 1539367211}
+      objectReference: {fileID: 1539367213}
     - target: {fileID: 8391272890797051103, guid: 0f48a66c7f3e75249b89726cf4eef355,
         type: 3}
       propertyPath: _spawnerEggsList
@@ -5435,7 +5435,8 @@ MonoBehaviour:
     type: 3}
   lifeManager: {fileID: 1651606116}
   DestroedAggsAudio: {fileID: 521636664}
-  _eggsList: {fileID: 0}
+  _eggsList: {fileID: 1259844737}
+  _spawnManager: {fileID: 1539367213}
 --- !u!65 &521636661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6983,7 +6984,7 @@ MonoBehaviour:
   _bestScore: {fileID: 1934099219}
   _youWin: {fileID: 163721127}
   _gameOverMenu: {fileID: 1942758482}
-  _spawnerManager: {fileID: 1539367211}
+  _spawnerManager: {fileID: 1539367213}
 --- !u!1 &1132925746
 GameObject:
   m_ObjectHideFlags: 0
@@ -7713,6 +7714,7 @@ MonoBehaviour:
   _howManyEggs: 50
   _eggsPrefabs: {fileID: 60438715524676782, guid: 428654d73711e1442b89e4edbe4b925b,
     type: 3}
+  _eggsInSceneList: []
 --- !u!4 &1259844738
 Transform:
   m_ObjectHideFlags: 0
@@ -7808,7 +7810,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnerManager
       value: 
-      objectReference: {fileID: 1539367211}
+      objectReference: {fileID: 1539367213}
     - target: {fileID: 8895370164669133873, guid: d92282afbeabbcf4aaffa9dc46b2979f,
         type: 3}
       propertyPath: _spawnerEggsList
@@ -8144,7 +8146,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnerManager
       value: 
-      objectReference: {fileID: 1539367211}
+      objectReference: {fileID: 1539367213}
     - target: {fileID: 8895370164669133873, guid: d92282afbeabbcf4aaffa9dc46b2979f,
         type: 3}
       propertyPath: _spawnerEggsList
@@ -8868,7 +8870,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnerManager
       value: 
-      objectReference: {fileID: 1539367211}
+      objectReference: {fileID: 1539367213}
     - target: {fileID: 8391272890797051103, guid: 0f48a66c7f3e75249b89726cf4eef355,
         type: 3}
       propertyPath: _spawnerEggsList
@@ -9129,6 +9131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539367212}
   - component: {fileID: 1539367211}
+  - component: {fileID: 1539367213}
   m_Layer: 0
   m_Name: SpawnerManager
   m_TagString: Untagged
@@ -9143,7 +9146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539367210}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02af595b874c3264d81ce18f99d3f2e7, type: 3}
   m_Name: 
@@ -9192,6 +9195,45 @@ Transform:
   m_Father: {fileID: 551884487}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1539367213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539367210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b097e45d1501af649aa54894f02b2f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1593377662}
+  GameIsRunning: 1
+  EggsSpwanCoolDown: 5
+  ActiveGutterNow: 4
+  _gutterList:
+  - {fileID: 1132925748}
+  - {fileID: 1256975011}
+  - {fileID: 1963912465}
+  - {fileID: 1182708143}
+  _chikenControllers:
+  - {fileID: 2043637652}
+  - {fileID: 1614241481487293340}
+  - {fileID: 1105145021}
+  - {fileID: 280865012}
+  _ostrichControllers:
+  - {fileID: 162583143}
+  - {fileID: 8578735565081170716}
+  - {fileID: 742455476}
+  - {fileID: 1643396894}
+  _flagsInstatiateNewSpawnTime: 0500000014000000
+  _scoreManag: {fileID: 1960284088}
+  _lifeManager: {fileID: 1651606116}
+  _difficultyManager: {fileID: 1030511392}
+  _activeGutter: 
+  _spawnerEggsList: {fileID: 1259844737}
+  _maxTimeCoolDown: 4
+  _minTimeCoolDown: 2
 --- !u!114 &1541210259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8695262160606196135, guid: 817728b89a3e0c641960b73e5837be6a,
@@ -9466,7 +9508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreManag: {fileID: 1960284088}
   YourScore: {fileID: 1948402197}
-  SpawnerManagerValue: {fileID: 1539367211}
+  SpawnerManagerValue: {fileID: 1539367213}
   StopMenu: {fileID: 355590757}
 --- !u!1001 &1643396891
 PrefabInstance:
@@ -21657,7 +21699,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnerManager
       value: 
-      objectReference: {fileID: 1539367211}
+      objectReference: {fileID: 1539367213}
     - target: {fileID: 8895370164669133873, guid: d92282afbeabbcf4aaffa9dc46b2979f,
         type: 3}
       propertyPath: _spawnerEggsList

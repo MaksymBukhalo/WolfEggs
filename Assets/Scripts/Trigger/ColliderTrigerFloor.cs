@@ -9,6 +9,7 @@ public class ColliderTrigerFloor : MonoBehaviour
 	public AudioSource DestroedAggsAudio;
 
 	[SerializeField] private SpawnerEggsList _eggsList;
+	[SerializeField] private EggsSpawnManager _spawnManager;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -49,5 +50,6 @@ public class ColliderTrigerFloor : MonoBehaviour
 		}
 		_eggsList.DestroyEggs(eggs);
 		Destroy(eggsDestroy, 7);
+		_spawnManager.EggsDestroty();
 	}
 }

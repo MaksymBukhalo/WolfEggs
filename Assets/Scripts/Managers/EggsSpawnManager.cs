@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EggsSpawnManager : MonoBehaviour
-{ 
+{
 	public Text text;
 	public bool GameIsRunning;
 	public float EggsSpwanCoolDown = 5;
@@ -36,19 +36,23 @@ public class EggsSpawnManager : MonoBehaviour
 	private float _switchGutterSpwanCoolDown = 10f;
 	private float _spanwCoolDownResert = -1;
 	private List<GameObject> _eggsList;
+	private int _valueRestartDificulty = 100;
+	private int _deltaScore = 30;
+	private float _deltaTime = 0.3f;
 
 	private void Start()
 	{
+		ActiveGutter(4);
 		_eggsList = _spawnerEggsList.EggsList;
 	}
 
 	private void Update()
 	{
-		if (_activateSwithCutter)
-		{
-			ActiveGutter(ActiveGutterNow);
-			_activateSwithCutter = false;
-		}
+		//if (_activateSwithCutter)
+		//{
+		//	ActiveGutter(ActiveGutterNow);
+		//	_activateSwithCutter = false;
+		//}
 	}
 
 	public void StartGame()
@@ -58,12 +62,12 @@ public class EggsSpawnManager : MonoBehaviour
 
 	private IEnumerator SpawnerEggs()
 	{
-		StartCoroutine(SwitchGutterActive());
+		//StartCoroutine(SwitchGutterActive());
 		yield return new WaitForSeconds(3f);
 		while (GameIsRunning)
 		{
 			int eggsSpaw = Random.Range(0, 100);
-			if (_eggsList.Count>_HowManyEggsInScene && eggsSpaw < _spawnerProcentChikenEggs)
+			if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw < _spawnerProcentChikenEggs)
 			{
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
 				_gutterList[NumberGutterList].StartSpawnChikenEggs();
@@ -92,15 +96,21 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				yield return new WaitForSeconds(EggsSpwanCoolDown);
 			}
-			if (EggsSpwanCoolDown > _minTimeCoolDown)
-			{
-				EggsSpwanCoolDown = EggsSpwanCoolDown * _valueDecreaseCoolDown;
-				text.text = "Time" + EggsSpwanCoolDown;
-			}
-			NewLevelDificalt();
+			NewCoolDown();
 		}
 	}
 
+	public void SetNewCoolDown()
+	{
+		Debug.Log("3    " + EggsSpwanCoolDown);
+		Debug.Log("4	" + _minTimeCoolDown);
+		if (EggsSpwanCoolDown >= _minTimeCoolDown)
+		{
+			Debug.Log(5);
+			EggsSpwanCoolDown = EggsSpwanCoolDown * _valueDecreaseCoolDown;
+			text.text = "Time" + EggsSpwanCoolDown;
+		}
+	}
 
 	public void RestartGame()
 	{
@@ -141,7 +151,7 @@ public class EggsSpawnManager : MonoBehaviour
 				_valueDecreaseCoolDown = 0.8f;
 				_switchGutterSpwanCoolDown = 5f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[0] - 1;
-				EggsSpwanCoolDown = _maxTimeCoolDown* _valueDecreaseCoolDown;
+				EggsSpwanCoolDown = _maxTimeCoolDown * _valueDecreaseCoolDown;
 			}
 			else if (score > _flagsInstatiateNewSpawnTime[0] && score < _flagsInstatiateNewSpawnTime[1])
 			{
@@ -187,11 +197,73 @@ public class EggsSpawnManager : MonoBehaviour
 		}
 	}
 
+	private void NewCoolDown()
+	{
+		int score = _scoreManag.Score;
+		if (score > _spanwCoolDownResert)
+		{
+			if (score < _flagsInstatiateNewSpawnTime[0])
+			{
+				Debug.Log(1);
+				_HowManyEggsInScene = 48;
+				_spawnerProcentOstrichEggs = 95;
+				_valueDecreaseCoolDown = 0.95f;
+				_maxTimeCoolDown = 5f;
+				_minTimeCoolDown = 3.5f;
+				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[0] - 1;
+				EggsSpwanCoolDown = _maxTimeCoolDown;
+			}
+			else if (score > _flagsInstatiateNewSpawnTime[0] && score < _flagsInstatiateNewSpawnTime[1])
+			{
+				Debug.Log(2);
+				_HowManyEggsInScene = 40;
+				_spawnerProcentOstrichEggs = 95;
+				_valueDecreaseCoolDown = 0.96f;
+				EggsSpwanCoolDown = _minTimeCoolDown;
+				_maxTimeCoolDown -= 1f;
+				_minTimeCoolDown -= 1f;
+				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[1] - 1;
+				_deltaScore = 30;
+				_deltaTime = 0.3f;
+			}
+			else if(score>_valueRestartDificulty)
+			{
+				_HowManyEggsInScene = 30;
+				_spawnerProcentOstrichEggs = 97;
+				_valueDecreaseCoolDown = 0.96f;
+				_maxTimeCoolDown = 3.5f;
+				_minTimeCoolDown = 2.5f;
+				EggsSpwanCoolDown = _maxTimeCoolDown;
+				_deltaScore = 20;
+				_spanwCoolDownResert = _valueRestartDificulty;
+				_deltaTime += 0.1f;
+			}
+			else if (score > _spanwCoolDownResert+_deltaScore)
+			{
+				Debug.Log(3);
+				_HowManyEggsInScene = 30;
+				_spawnerProcentOstrichEggs = 97;
+				_valueDecreaseCoolDown = 0.98f;
+				EggsSpwanCoolDown = _minTimeCoolDown;
+				_maxTimeCoolDown -= _deltaTime;
+				_minTimeCoolDown -= _deltaTime;
+				_spanwCoolDownResert += _deltaScore;
+			}
+		}
+	}
+
 	private int ReturnIndexGutterFromSpawn()
 	{
-		int returnIndex = Random.Range(0, _activeGutter.Count);
+		int returnIndex = Random.Range(0, 4);
 		return _activeGutter[returnIndex];
 	}
+
+	public void EggsDestroty()
+	{
+		_spawnerEggsList.DestroyAllEggs();
+		EggsSpwanCoolDown = _maxTimeCoolDown;
+	}
+
 	private void ActiveGutter(int gutterValue)
 	{
 		_activeGutter = new List<int>();
@@ -206,6 +278,7 @@ public class EggsSpawnManager : MonoBehaviour
 			}
 		}
 	}
+
 	private IEnumerator SwitchGutterActive()
 	{
 		while (true)

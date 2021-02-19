@@ -23,6 +23,7 @@ public class TriggerForEggsInBasket : MonoBehaviour
 			other.gameObject.layer = 12;
 			ScoreManag.Score += AddScoreValue ;
 			InstatiateScore("+" + AddScoreValue);
+			_spawnerManager.SetNewCoolDown();
 			ScoreManag.ScoreText.text = "Score: " + ScoreManag.Score;
 			aggsinGutter.Play();
 			_spawnerEggsList.DestroyEggs(other.gameObject, 1f);

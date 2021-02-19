@@ -29,6 +29,7 @@ public class SpawnerEggsList : MonoBehaviour
 		EggsList.RemoveAt(0);
 		egg.SetActive(true);
 		_eggsInSceneList.Add(egg);
+		egg.layer = 8;
 		return egg;
 	}
 
@@ -61,8 +62,11 @@ public class SpawnerEggsList : MonoBehaviour
 		while(_eggsInSceneList.Count >0)
 		{
 			GameObject egg = _eggsInSceneList[0];
+			egg.SetActive(false);
+			egg.transform.position = transform.position;
 			_eggsInSceneList.RemoveAt(0);
 			EggsList.Add(egg);
+			egg.layer = 8;
 		}
 	}
 }

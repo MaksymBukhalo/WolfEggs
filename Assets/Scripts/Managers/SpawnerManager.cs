@@ -33,6 +33,11 @@ public class SpawnerManager : MonoBehaviour
 	private float _switchGutterSpwanCoolDown = 10f;
 	private float _spanwCoolDownResert = -1;
 
+
+	private float _minSpawnCoollDown = 0f;
+	private float _maxSpawnCoollDown = 0f;
+	private float _deltaSpeed;
+
 	private void Update()
 	{
 		if (_activateSwithCutter)
