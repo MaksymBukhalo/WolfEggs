@@ -24,9 +24,9 @@ public class HelpManager : MonoBehaviour
 
 	private void ActivateHelp()
 	{
-		for(int i = 0;i<_triggerForEggsInGutters.Count;i++)
+		for (int i = 0; i < _triggerForEggsInGutters.Count; i++)
 		{
-			if(_triggerForEggsInGutters[i].IsEggsInGutter == true)
+			if (_triggerForEggsInGutters[i].IsEggsInGutter == true)
 			{
 				_nestColorAlfas[i].ImageOne.color = activeColor;
 				_nestColorAlfas[i].ImageTwo.color = activeColor;
@@ -36,6 +36,17 @@ public class HelpManager : MonoBehaviour
 				_nestColorAlfas[i].ImageOne.color = deActiveColor;
 				_nestColorAlfas[i].ImageTwo.color = deActiveColor;
 			}
+		}
+	}
+
+
+	public void DeactivateColor()
+	{
+		for (int i = 0; i < _nestColorAlfas.Count; i++)
+		{
+			_triggerForEggsInGutters[i].IsEggsInGutter = false;
+			_nestColorAlfas[i].ImageOne.color = deActiveColor;
+			_nestColorAlfas[i].ImageTwo.color = deActiveColor;
 		}
 	}
 }

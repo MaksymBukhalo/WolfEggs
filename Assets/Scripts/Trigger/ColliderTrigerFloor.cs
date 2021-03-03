@@ -8,6 +8,7 @@ public class ColliderTrigerFloor : MonoBehaviour
 	public LifeManager lifeManager;
 	public AudioSource DestroedAggsAudio;
 
+	[SerializeField] private HelpManager _helpManager;
 	[SerializeField] private SpawnerEggsList _eggsList;
 	[SerializeField] private EggsSpawnManager _spawnManager;
 
@@ -19,6 +20,8 @@ public class ColliderTrigerFloor : MonoBehaviour
 			lifeManager.EggsDestroy();
 			other.gameObject.layer = 8;
 			SwithEggsOnEggsDestroy(other.gameObject);
+			_spawnManager.EggsDestroty();
+			_helpManager.DeactivateColor();
 		}
 		else if(other.gameObject.layer == 14)
 		{
@@ -32,6 +35,7 @@ public class ColliderTrigerFloor : MonoBehaviour
 		}
 		else if(other.gameObject.layer == 19)
 		{
+			DestroedAggsAudio.Play();
 			other.gameObject.layer = 8;
 			SwithEggsOnEggsDestroy(other.gameObject);
 		}
@@ -50,6 +54,5 @@ public class ColliderTrigerFloor : MonoBehaviour
 		}
 		_eggsList.DestroyEggs(eggs);
 		Destroy(eggsDestroy, 7);
-		_spawnManager.EggsDestroty();
 	}
 }

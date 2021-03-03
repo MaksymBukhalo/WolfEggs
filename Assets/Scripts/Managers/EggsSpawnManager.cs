@@ -25,7 +25,7 @@ public class EggsSpawnManager : MonoBehaviour
 
 
 	private int _HowManyEggsInScene;
-	private int _spawnerProcentChikenEggs = 85;
+	private int _spawnerProcentChikenEggs =80;
 	private int _spawnerProcentOstrichEggs = 100;
 	private int _spawnerProcentChikenFailedEggs = 95;
 	private float _valueDecreaseCoolDown = 0.98f;
@@ -39,6 +39,7 @@ public class EggsSpawnManager : MonoBehaviour
 	private int _valueRestartDificulty = 100;
 	private int _deltaScore = 30;
 	private float _deltaTime = 0.3f;
+	private Coroutine _spawnerEggsCoroutine;
 
 	private void Start()
 	{
@@ -57,7 +58,7 @@ public class EggsSpawnManager : MonoBehaviour
 
 	public void StartGame()
 	{
-		StartCoroutine(SpawnerEggs());
+		_spawnerEggsCoroutine = StartCoroutine(SpawnerEggs());
 	}
 
 	private IEnumerator SpawnerEggs()
@@ -67,21 +68,21 @@ public class EggsSpawnManager : MonoBehaviour
 		while (GameIsRunning)
 		{
 			int eggsSpaw = Random.Range(0, 100);
-			if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw < _spawnerProcentChikenEggs)
+			if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw <=_spawnerProcentChikenEggs)
 			{
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
 				_gutterList[NumberGutterList].StartSpawnChikenEggs();
 				_chikenControllers[NumberGutterList].StartLayEggs();
 				yield return new WaitForSeconds(EggsSpwanCoolDown);
 			}
-			else if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw > _spawnerProcentChikenEggs && eggsSpaw < _spawnerProcentChikenFailedEggs)
+			else if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw > _spawnerProcentChikenEggs && eggsSpaw <=_spawnerProcentChikenFailedEggs)
 			{
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
 				_gutterList[NumberGutterList].StartSpawnFailedEggs();
 				_chikenControllers[NumberGutterList].StartLayEggs();
 				yield return new WaitForSeconds(EggsSpwanCoolDown);
 			}
-			else if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw > _spawnerProcentChikenFailedEggs && eggsSpaw < _spawnerProcentOstrichEggs)
+			else if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw > _spawnerProcentChikenFailedEggs && eggsSpaw <= _spawnerProcentOstrichEggs)
 			{
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
 				_ostrichControllers[NumberGutterList].gameObject.SetActive(true);
@@ -114,10 +115,12 @@ public class EggsSpawnManager : MonoBehaviour
 
 	public void RestartGame()
 	{
+		StopCoroutine(_spawnerEggsCoroutine);
+		_spawnerEggsCoroutine = null;
 		_sizeValueInstatiateNewFoarse = 25;
 		_scoreManag.Score = 0;
 		RestartTimeAndForce();
-		StartCoroutine(SpawnerEggs());
+		_spawnerEggsCoroutine = StartCoroutine(SpawnerEggs());
 	}
 
 	private void RestartTimeAndForce()
@@ -157,7 +160,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 40;
 				ActiveGutterNow = 2;
-				_spawnerProcentOstrichEggs = 95;
+				_spawnerProcentOstrichEggs = 85;
 				_valueDecreaseCoolDown = 0.9f;
 				_switchGutterSpwanCoolDown = 5f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[1] - 1;
@@ -168,7 +171,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 30;
 				ActiveGutterNow = 2;
-				_spawnerProcentOstrichEggs = 97;
+				_spawnerProcentOstrichEggs = 90;
 				_valueDecreaseCoolDown = 0.95f;
 				_switchGutterSpwanCoolDown = 15f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[2] - 1;
@@ -200,50 +203,49 @@ public class EggsSpawnManager : MonoBehaviour
 	private void NewCoolDown()
 	{
 		int score = _scoreManag.Score;
-		if (score > _spanwCoolDownResert)
+		if (score > _spanwCoolDownResert || score> _valueRestartDificulty)
 		{
 			if (score < _flagsInstatiateNewSpawnTime[0])
 			{
-				Debug.Log(1);
-				_HowManyEggsInScene = 48;
-				_spawnerProcentOstrichEggs = 95;
+				_HowManyEggsInScene = 49;
+				_spawnerProcentChikenFailedEggs = 95;
 				_valueDecreaseCoolDown = 0.95f;
 				_maxTimeCoolDown = 5f;
 				_minTimeCoolDown = 3.5f;
-				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[0] - 1;
+				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[0];
 				EggsSpwanCoolDown = _maxTimeCoolDown;
 			}
 			else if (score > _flagsInstatiateNewSpawnTime[0] && score < _flagsInstatiateNewSpawnTime[1])
 			{
-				Debug.Log(2);
-				_HowManyEggsInScene = 40;
-				_spawnerProcentOstrichEggs = 95;
-				_valueDecreaseCoolDown = 0.96f;
+				_HowManyEggsInScene = 35;
+				_spawnerProcentChikenFailedEggs = 95;
+				_valueDecreaseCoolDown = 0.95f;
 				EggsSpwanCoolDown = _minTimeCoolDown;
 				_maxTimeCoolDown -= 1f;
 				_minTimeCoolDown -= 1f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[1] - 1;
-				_deltaScore = 30;
+				_deltaScore = 0;
 				_deltaTime = 0.3f;
 			}
-			else if(score>_valueRestartDificulty)
+			else if (score > _valueRestartDificulty)
 			{
-				_HowManyEggsInScene = 30;
-				_spawnerProcentOstrichEggs = 97;
-				_valueDecreaseCoolDown = 0.96f;
+				_HowManyEggsInScene = 25;
+				_spawnerProcentChikenFailedEggs = 92;
+				_valueDecreaseCoolDown = 0.95f;
 				_maxTimeCoolDown = 3.5f;
 				_minTimeCoolDown = 2.5f;
 				EggsSpwanCoolDown = _maxTimeCoolDown;
-				_deltaScore = 20;
-				_spanwCoolDownResert = _valueRestartDificulty;
+				_deltaScore = 10;
+				_spanwCoolDownResert = _valueRestartDificulty+_deltaScore;
 				_deltaTime += 0.1f;
+				_valueRestartDificulty = 200;
 			}
-			else if (score > _spanwCoolDownResert+_deltaScore)
+			else if (score > _spanwCoolDownResert)
 			{
-				Debug.Log(3);
+				_deltaScore = 25;
 				_HowManyEggsInScene = 30;
-				_spawnerProcentOstrichEggs = 97;
-				_valueDecreaseCoolDown = 0.98f;
+				_spawnerProcentChikenFailedEggs = 92;
+				_valueDecreaseCoolDown = 0.96f;
 				EggsSpwanCoolDown = _minTimeCoolDown;
 				_maxTimeCoolDown -= _deltaTime;
 				_minTimeCoolDown -= _deltaTime;
