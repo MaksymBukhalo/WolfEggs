@@ -25,7 +25,7 @@ public class EggsSpawnManager : MonoBehaviour
 
 
 	private int _HowManyEggsInScene;
-	private int _spawnerProcentChikenEggs =80;
+	private int _spawnerProcentChikenEggs =85;
 	private int _spawnerProcentOstrichEggs = 100;
 	private int _spawnerProcentChikenFailedEggs = 95;
 	private float _valueDecreaseCoolDown = 0.98f;
@@ -150,7 +150,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 45;
 				ActiveGutterNow = 4;
-				_spawnerProcentOstrichEggs = 95;
+				_spawnerProcentOstrichEggs = 99;
 				_valueDecreaseCoolDown = 0.8f;
 				_switchGutterSpwanCoolDown = 5f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[0] - 1;
@@ -160,7 +160,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 40;
 				ActiveGutterNow = 2;
-				_spawnerProcentOstrichEggs = 85;
+				_spawnerProcentOstrichEggs = 98;
 				_valueDecreaseCoolDown = 0.9f;
 				_switchGutterSpwanCoolDown = 5f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[1] - 1;
@@ -171,7 +171,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 30;
 				ActiveGutterNow = 2;
-				_spawnerProcentOstrichEggs = 90;
+				_spawnerProcentOstrichEggs = 95;
 				_valueDecreaseCoolDown = 0.95f;
 				_switchGutterSpwanCoolDown = 15f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[2] - 1;
@@ -208,7 +208,7 @@ public class EggsSpawnManager : MonoBehaviour
 			if (score < _flagsInstatiateNewSpawnTime[0])
 			{
 				_HowManyEggsInScene = 49;
-				_spawnerProcentChikenFailedEggs = 95;
+				_spawnerProcentChikenFailedEggs = 99;
 				_valueDecreaseCoolDown = 0.95f;
 				_maxTimeCoolDown = 5f;
 				_minTimeCoolDown = 3.5f;
@@ -218,7 +218,7 @@ public class EggsSpawnManager : MonoBehaviour
 			else if (score > _flagsInstatiateNewSpawnTime[0] && score < _flagsInstatiateNewSpawnTime[1])
 			{
 				_HowManyEggsInScene = 35;
-				_spawnerProcentChikenFailedEggs = 95;
+				_spawnerProcentChikenFailedEggs = 98;
 				_valueDecreaseCoolDown = 0.95f;
 				EggsSpwanCoolDown = _minTimeCoolDown;
 				_maxTimeCoolDown -= 1f;
@@ -230,7 +230,7 @@ public class EggsSpawnManager : MonoBehaviour
 			else if (score > _valueRestartDificulty)
 			{
 				_HowManyEggsInScene = 25;
-				_spawnerProcentChikenFailedEggs = 92;
+				_spawnerProcentChikenFailedEggs = 95;
 				_valueDecreaseCoolDown = 0.95f;
 				_maxTimeCoolDown = 3.5f;
 				_minTimeCoolDown = 2.5f;
@@ -244,7 +244,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_deltaScore = 25;
 				_HowManyEggsInScene = 30;
-				_spawnerProcentChikenFailedEggs = 92;
+				_spawnerProcentChikenFailedEggs = 95;
 				_valueDecreaseCoolDown = 0.96f;
 				EggsSpwanCoolDown = _minTimeCoolDown;
 				_maxTimeCoolDown -= _deltaTime;

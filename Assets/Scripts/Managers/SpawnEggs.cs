@@ -12,7 +12,8 @@ public class SpawnEggs : MonoBehaviour
 	public string _nameOstrichEggs = "OstrichEgg";
 	public string _nameFailEggs = "FailEgg";
 
-	[SerializeField] private Transform _spawnpoint;
+	[SerializeField] private Transform _spawnPoint;
+	[SerializeField] private Transform _endPoint;
 	[SerializeField] private Material _failledEggsMaterial;
 	[SerializeField] private SpawnerEggsList _eggsList;
 
@@ -25,7 +26,8 @@ public class SpawnEggs : MonoBehaviour
 		GameObject egg = SetEggSetings();
 		RandomNewColorEggs();
 		egg.name = _nameDefaultEggs;
-		PushEggs(egg);
+		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint);
+		//PushEggs(egg);
 	}
 
 	public void StartSpawnOstrichEggs()
@@ -35,7 +37,8 @@ public class SpawnEggs : MonoBehaviour
 		_eggsMeshRender.material = MaterialsEggs[0];
 		_ostrichEggs.localScale = new Vector3(5, 5, 5);
 		egg.name = _nameOstrichEggs;
-		PushEggs(egg);
+		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint);
+		//PushEggs(egg);
 	}
 
 	public void StartSpawnFailedEggs()
@@ -43,21 +46,22 @@ public class SpawnEggs : MonoBehaviour
 		GameObject egg = SetEggSetings();
 		_eggsMeshRender.material = _failledEggsMaterial;
 		egg.name = _nameFailEggs;
-		PushEggs(egg);
+		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint);
+		//PushEggs(egg);
 	}
 
 	private void PushEggs(GameObject egg)
 	{
-		egg.transform.position = _spawnpoint.position;
-		egg.transform.rotation = _spawnpoint.rotation;
-		if (IsLeftSide)
-		{
-			_eggRigidbody.AddForce(Vector3.up * ForcePower, ForceMode.VelocityChange);
-		}
-		else
-		{
-			_eggRigidbody.AddForce(Vector3.down * ForcePower, ForceMode.VelocityChange);
-		}
+		//egg.transform.position = _spawnpoint.position;
+		//egg.transform.rotation = _spawnpoint.rotation;
+		//if (IsLeftSide)
+		//{
+		//	_eggRigidbody.AddForce(Vector3.up * ForcePower, ForceMode.VelocityChange);
+		//}
+		//else
+		//{
+		//	_eggRigidbody.AddForce(Vector3.down * ForcePower, ForceMode.VelocityChange);
+		//}
 	}
 
 	private void RandomNewColorEggs()
@@ -70,7 +74,7 @@ public class SpawnEggs : MonoBehaviour
 	{
 		GameObject egg = _eggsList.IntstatiateEggs();
 		_eggsMeshRender = egg.GetComponent<MeshRenderer>();
-		_eggRigidbody = egg.GetComponent<Rigidbody>();
+		//_eggRigidbody = egg.GetComponent<Rigidbody>();
 		return egg;
 	}
 }

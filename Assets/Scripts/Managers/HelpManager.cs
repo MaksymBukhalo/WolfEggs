@@ -19,7 +19,7 @@ public class HelpManager : MonoBehaviour
 
 	private void Update()
 	{
-		ActivateHelp();
+		//ActivateHelp();
 	}
 
 	private void ActivateHelp()
