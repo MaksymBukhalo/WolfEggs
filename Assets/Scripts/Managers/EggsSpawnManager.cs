@@ -25,7 +25,7 @@ public class EggsSpawnManager : MonoBehaviour
 
 
 	private int _HowManyEggsInScene;
-	private int _spawnerProcentChikenEggs =85;
+	private int _spawnerProcentChikenEggs = 85;
 	private int _spawnerProcentOstrichEggs = 100;
 	private int _spawnerProcentChikenFailedEggs = 95;
 	private float _valueDecreaseCoolDown = 0.98f;
@@ -40,6 +40,8 @@ public class EggsSpawnManager : MonoBehaviour
 	private int _deltaScore = 30;
 	private float _deltaTime = 0.3f;
 	private Coroutine _spawnerEggsCoroutine;
+	private float _speedEgg = 0.005f;
+	private float _rotateDirection= -2f;
 
 	private void Start()
 	{
@@ -68,16 +70,19 @@ public class EggsSpawnManager : MonoBehaviour
 		while (GameIsRunning)
 		{
 			int eggsSpaw = Random.Range(0, 100);
-			if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw <=_spawnerProcentChikenEggs)
+			if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw <= _spawnerProcentChikenEggs)
 			{
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
+				_gutterList[NumberGutterList].SpeedEggs = _speedEgg;
+				_gutterList[NumberGutterList].RotationDirection = _rotateDirection;
 				_gutterList[NumberGutterList].StartSpawnChikenEggs();
 				_chikenControllers[NumberGutterList].StartLayEggs();
 				yield return new WaitForSeconds(EggsSpwanCoolDown);
 			}
-			else if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw > _spawnerProcentChikenEggs && eggsSpaw <=_spawnerProcentChikenFailedEggs)
+			else if (_eggsList.Count > _HowManyEggsInScene && eggsSpaw > _spawnerProcentChikenEggs && eggsSpaw <= _spawnerProcentChikenFailedEggs)
 			{
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
+				_gutterList[NumberGutterList].SpeedEggs = _speedEgg;
 				_gutterList[NumberGutterList].StartSpawnFailedEggs();
 				_chikenControllers[NumberGutterList].StartLayEggs();
 				yield return new WaitForSeconds(EggsSpwanCoolDown);
@@ -87,6 +92,7 @@ public class EggsSpawnManager : MonoBehaviour
 				int NumberGutterList = ReturnIndexGutterFromSpawn();
 				_ostrichControllers[NumberGutterList].gameObject.SetActive(true);
 				_chikenControllers[NumberGutterList].gameObject.SetActive(false);
+				_gutterList[NumberGutterList].SpeedEggs = _speedEgg;
 				_gutterList[NumberGutterList].StartSpawnOstrichEggs();
 				_ostrichControllers[NumberGutterList].StartLayEggs();
 				yield return new WaitForSeconds(EggsSpwanCoolDown);
@@ -103,11 +109,8 @@ public class EggsSpawnManager : MonoBehaviour
 
 	public void SetNewCoolDown()
 	{
-		Debug.Log("3    " + EggsSpwanCoolDown);
-		Debug.Log("4	" + _minTimeCoolDown);
 		if (EggsSpwanCoolDown >= _minTimeCoolDown)
 		{
-			Debug.Log(5);
 			EggsSpwanCoolDown = EggsSpwanCoolDown * _valueDecreaseCoolDown;
 			text.text = "Time" + EggsSpwanCoolDown;
 		}
@@ -126,18 +129,18 @@ public class EggsSpawnManager : MonoBehaviour
 	private void RestartTimeAndForce()
 	{
 		EggsSpwanCoolDown = 5.5f;
-		for (int i = 0; i < _gutterList.Count; i++)
-		{
-			if (i < 2)
-			{
-				_gutterList[i].ForcePower = 1f;
-			}
-			else
-			{
-				_gutterList[i].ForcePower = -1f;
-			}
-			GameIsRunning = true;
-		}
+		//for (int i = 0; i < _gutterList.Count; i++)
+		//{
+		//if (i < 2)
+		//{
+		//	_gutterList[i].ForcePower = 1f;
+		//}
+		//else
+		//{
+		//	_gutterList[i].ForcePower = -1f;
+		//}
+		GameIsRunning = true;
+		//}
 		_lifeManager.ActivateLife();
 	}
 
@@ -150,6 +153,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 45;
 				ActiveGutterNow = 4;
+				_speedEgg = 0.005f;
 				_spawnerProcentOstrichEggs = 99;
 				_valueDecreaseCoolDown = 0.8f;
 				_switchGutterSpwanCoolDown = 5f;
@@ -160,6 +164,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 40;
 				ActiveGutterNow = 2;
+				_speedEgg = 0.008f;
 				_spawnerProcentOstrichEggs = 98;
 				_valueDecreaseCoolDown = 0.9f;
 				_switchGutterSpwanCoolDown = 5f;
@@ -171,6 +176,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 30;
 				ActiveGutterNow = 2;
+				_speedEgg = 0.008f;
 				_spawnerProcentOstrichEggs = 95;
 				_valueDecreaseCoolDown = 0.95f;
 				_switchGutterSpwanCoolDown = 15f;
@@ -182,6 +188,7 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 20;
 				ActiveGutterNow = 3;
+				_speedEgg = 0.008f;
 				_spawnerProcentOstrichEggs = 100;
 				_valueDecreaseCoolDown = 0.97f;
 				_switchGutterSpwanCoolDown = 25f;
@@ -203,12 +210,14 @@ public class EggsSpawnManager : MonoBehaviour
 	private void NewCoolDown()
 	{
 		int score = _scoreManag.Score;
-		if (score > _spanwCoolDownResert || score> _valueRestartDificulty)
+		if (score > _spanwCoolDownResert || score > _valueRestartDificulty)
 		{
 			if (score < _flagsInstatiateNewSpawnTime[0])
 			{
 				_HowManyEggsInScene = 49;
 				_spawnerProcentChikenFailedEggs = 99;
+				_speedEgg = 0.005f;
+				_rotateDirection = -2f;
 				_valueDecreaseCoolDown = 0.95f;
 				_maxTimeCoolDown = 5f;
 				_minTimeCoolDown = 3.5f;
@@ -219,6 +228,8 @@ public class EggsSpawnManager : MonoBehaviour
 			{
 				_HowManyEggsInScene = 35;
 				_spawnerProcentChikenFailedEggs = 98;
+				_speedEgg = 0.008f;
+				_rotateDirection = -2.5f;
 				_valueDecreaseCoolDown = 0.95f;
 				EggsSpwanCoolDown = _minTimeCoolDown;
 				_maxTimeCoolDown -= 1f;
@@ -232,11 +243,13 @@ public class EggsSpawnManager : MonoBehaviour
 				_HowManyEggsInScene = 25;
 				_spawnerProcentChikenFailedEggs = 95;
 				_valueDecreaseCoolDown = 0.95f;
+				_speedEgg = 0.008f;
+				_rotateDirection = -2.5f;
 				_maxTimeCoolDown = 3.5f;
 				_minTimeCoolDown = 2.5f;
 				EggsSpwanCoolDown = _maxTimeCoolDown;
 				_deltaScore = 10;
-				_spanwCoolDownResert = _valueRestartDificulty+_deltaScore;
+				_spanwCoolDownResert = _valueRestartDificulty + _deltaScore;
 				_deltaTime += 0.1f;
 				_valueRestartDificulty = 200;
 			}
@@ -245,6 +258,8 @@ public class EggsSpawnManager : MonoBehaviour
 				_deltaScore = 25;
 				_HowManyEggsInScene = 30;
 				_spawnerProcentChikenFailedEggs = 95;
+				_rotateDirection = -3.5f;
+				_speedEgg += 0.001f;
 				_valueDecreaseCoolDown = 0.96f;
 				EggsSpwanCoolDown = _minTimeCoolDown;
 				_maxTimeCoolDown -= _deltaTime;

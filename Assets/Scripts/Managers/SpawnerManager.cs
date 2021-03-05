@@ -186,18 +186,18 @@ public class SpawnerManager : MonoBehaviour
 	private void RestartTimeAndForce()
 	{
 		EggsSpwanCoolDown = 5.5f;
-		for (int i = 0; i < _gutterList.Count; i++)
-		{
-			if (i < 2)
-			{
-				_gutterList[i].ForcePower = 1f;
-			}
-			else
-			{
-				_gutterList[i].ForcePower = -1f;
-			}
+		//for (int i = 0; i < _gutterList.Count; i++)
+		//{
+		//	if (i < 2)
+		//	{
+		//		_gutterList[i].ForcePower = 1f;
+		//	}
+		//	else
+		//	{
+		//		_gutterList[i].ForcePower = -1f;
+		//	}
 			GameIsRunning = true;
-		}
+		//}
 		_lifeManager.ActivateLife();
 	}
 

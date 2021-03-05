@@ -7,11 +7,13 @@ public class SpawnEggs : MonoBehaviour
 	//public bool IsEctive;
 	public bool IsLeftSide;
 	public List<Material> MaterialsEggs;
-	public float ForcePower = 1f;
+	//public float ForcePower = 1f;
 	public string _nameDefaultEggs = "ChikenEgg";
 	public string _nameOstrichEggs = "OstrichEgg";
 	public string _nameFailEggs = "FailEgg";
-
+	public float SpeedEggs;
+	public float RotationDirection;
+	[SerializeField] private Vector3 _rotationEggMove;
 	[SerializeField] private Transform _spawnPoint;
 	[SerializeField] private Transform _endPoint;
 	[SerializeField] private Material _failledEggsMaterial;
@@ -26,7 +28,7 @@ public class SpawnEggs : MonoBehaviour
 		GameObject egg = SetEggSetings();
 		RandomNewColorEggs();
 		egg.name = _nameDefaultEggs;
-		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint);
+		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint, _rotationEggMove, RotationDirection, SpeedEggs);
 		//PushEggs(egg);
 	}
 
@@ -37,7 +39,7 @@ public class SpawnEggs : MonoBehaviour
 		_eggsMeshRender.material = MaterialsEggs[0];
 		_ostrichEggs.localScale = new Vector3(5, 5, 5);
 		egg.name = _nameOstrichEggs;
-		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint);
+		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint, _rotationEggMove, RotationDirection, SpeedEggs);
 		//PushEggs(egg);
 	}
 
@@ -46,7 +48,7 @@ public class SpawnEggs : MonoBehaviour
 		GameObject egg = SetEggSetings();
 		_eggsMeshRender.material = _failledEggsMaterial;
 		egg.name = _nameFailEggs;
-		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint);
+		egg.GetComponent<EggsMoveController>().SetSpotsMove(_spawnPoint, _endPoint, _rotationEggMove, RotationDirection, SpeedEggs);
 		//PushEggs(egg);
 	}
 

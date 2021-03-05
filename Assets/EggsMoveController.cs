@@ -10,18 +10,22 @@ public class EggsMoveController : MonoBehaviour
 
 	[SerializeField] private AudioSource _eggsMoveAudio;
 	[SerializeField] private Rigidbody _eggRigidbody;
-	[SerializeField] private float _rotationValue;
+	[SerializeField] private float _rotateValueX;
 	[SerializeField] private float _stepMove;
 
 	private Coroutine _moveEgg;
 	private float _count = 0f;
 
 
-	public void SetSpotsMove(Transform startSpot, Transform endSpot)
+	public void SetSpotsMove(Transform startSpot, Transform endSpot, Vector3 rotationEgg, float rotationDirection, float newStepMove)
 	{
 		KilleCoroutine();
+		transform.eulerAngles = rotationEgg;
+		_rotateValueX = rotationDirection;
+		_stepMove = newStepMove;
 		_count = 0f;
-		StartPositionMove = startSpot.position;		EndPositionMove = endSpot.position;
+		StartPositionMove = startSpot.position;		
+		EndPositionMove = endSpot.position;
 		_moveEgg =  StartCoroutine(MoveEggCoroutine());
 	}
 
@@ -33,7 +37,7 @@ public class EggsMoveController : MonoBehaviour
 		{
 			_count += _stepMove;
 			transform.position = Vector3.Lerp(StartPositionMove, EndPositionMove, _count);
-			transform.Rotate(_rotationValue, 0f, 0f);
+			transform.Rotate(_rotateValueX,0f,0f);
 			if (value < _count)
 			{
 				_eggsMoveAudio.Play();
