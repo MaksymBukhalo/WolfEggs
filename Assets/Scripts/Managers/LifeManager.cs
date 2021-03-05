@@ -14,16 +14,9 @@ public class LifeManager : MonoBehaviour
 
 	private int _numberLife = 0;
 
-	public void EggsDestroy()
+	public void EggsDestroy(int lifeValue)
 	{
-		if (!isOsctrichEggs)
-		{
-			TakingAwayLife(1);
-		}
-		else
-		{
-			TakingAwayLife(2);
-		}
+			TakingAwayLife(lifeValue);
 	}
 
 	private void TakingAwayLife(int numbersLife)

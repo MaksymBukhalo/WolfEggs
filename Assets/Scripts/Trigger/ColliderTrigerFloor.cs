@@ -17,7 +17,7 @@ public class ColliderTrigerFloor : MonoBehaviour
 		if (other.gameObject.layer == 11)
 		{
 			DestroedAggsAudio.Play();
-			lifeManager.EggsDestroy();
+			lifeManager.EggsDestroy(1);
 			other.gameObject.layer = 8;
 			SwithEggsOnEggsDestroy(other.gameObject);
 			_spawnManager.EggsDestroty();
@@ -36,6 +36,7 @@ public class ColliderTrigerFloor : MonoBehaviour
 		else if(other.gameObject.layer == 19)
 		{
 			DestroedAggsAudio.Play();
+			lifeManager.EggsDestroy(2);
 			other.gameObject.layer = 8;
 			SwithEggsOnEggsDestroy(other.gameObject);
 		}

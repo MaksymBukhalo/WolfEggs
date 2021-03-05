@@ -7,7 +7,7 @@ public class EggsSpawnManager : MonoBehaviour
 {
 	public Text text;
 	public bool GameIsRunning;
-	public float EggsSpwanCoolDown = 5;
+	public float EggsSpwanCoolDown = 4;
 	public int ActiveGutterNow = 4;
 
 	[SerializeField] private List<SpawnEggs> _gutterList;
@@ -214,12 +214,12 @@ public class EggsSpawnManager : MonoBehaviour
 		{
 			if (score < _flagsInstatiateNewSpawnTime[0])
 			{
-				_HowManyEggsInScene = 49;
+				_HowManyEggsInScene = 48;
 				_spawnerProcentChikenFailedEggs = 99;
 				_speedEgg = 0.005f;
 				_rotateDirection = -2f;
 				_valueDecreaseCoolDown = 0.95f;
-				_maxTimeCoolDown = 5f;
+				_maxTimeCoolDown = 4f;
 				_minTimeCoolDown = 3.5f;
 				_spanwCoolDownResert = _flagsInstatiateNewSpawnTime[0];
 				EggsSpwanCoolDown = _maxTimeCoolDown;

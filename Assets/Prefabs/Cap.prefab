@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7078927978327536352}
   - component: {fileID: 2190770518406632276}
   - component: {fileID: 1242819427556252911}
-  m_Layer: 10
+  - component: {fileID: 1992769739538981542}
+  m_Layer: 20
   m_Name: Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +54,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9156151, z: 1.1703268}
   m_Center: {x: 0, y: -0.042192582, z: 0.08516349}
+--- !u!114 &1992769739538981542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414661536567633666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85d984abe7de104aa81a48ad9bfea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &644261891228216070
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,6 +953,7 @@ MonoBehaviour:
   _lifeManager: {fileID: 0}
   _basket: {fileID: 9004962254257548945}
   _spawnerManager: {fileID: 0}
+  _spawnerEggsList: {fileID: 0}
 --- !u!82 &8895370164669133872
 AudioSource:
   m_ObjectHideFlags: 0

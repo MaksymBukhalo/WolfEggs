@@ -15,35 +15,43 @@ public class TriggerForEggsInBasket : MonoBehaviour
 	[SerializeField] private Transform _basket;
 	[SerializeField] private EggsSpawnManager _spawnerManager;
 	[SerializeField] private SpawnerEggsList _spawnerEggsList;
+	[SerializeField] private Transform _binSpot;
+	private Vector3 _startPoint;
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == 11)
 		{ 
 			other.gameObject.layer = 12;
-			ScoreManag.Score += AddScoreValue ;
+			ScoreManag.Score += AddScoreValue;
+			//_startPoint = other.gameObject.transform.position;
 			InstatiateScore("+" + AddScoreValue);
 			_spawnerManager.SetNewCoolDown();
 			ScoreManag.ScoreText.text = "Score: " + ScoreManag.Score;
 			aggsinGutter.Play();
+			//other.gameObject.GetComponent<EggsMoveController>().SetEggFailPathInTrashBin(_startPoint, _binSpot.position);
 			_spawnerEggsList.DestroyEggs(other.gameObject, 1f);
 		}
 		else if(other.gameObject.layer == 19)
 		{
 			other.gameObject.layer = 12;
-			_spawnerManager.EggsSpwanCoolDown *= 0.95f;
+			_spawnerManager.EggsSpwanCoolDown *= 0.95f; 
+			//_startPoint = other.gameObject.transform.position;
 			aggsinGutter.Play();
+			//other.gameObject.GetComponent<EggsMoveController>().SetEggFailPathInTrashBin(_startPoint, _binSpot.position);
 			_spawnerEggsList.DestroyEggs(other.gameObject, 1f);
 		}
 		else if (gameObject.layer == 15 && other.gameObject.layer == 14)
 		{
 			other.gameObject.layer = 12;
 			ScoreManag.Score += AddScoreValue*5;
+			//_startPoint = other.gameObject.transform.position;
 			InstatiateScore("+" + AddScoreValue*5);
 			ScoreManag.ScoreText.text = "Score: " + ScoreManag.Score;
 			aggsinGutter.Play();
 			_lifeManager.AddLife(2);
-			_spawnerEggsList.DestroyEggs(other.gameObject,1f);
+			//other.gameObject.GetComponent<EggsMoveController>().SetEggFailPathInTrashBin(_startPoint, _binSpot.position);
+			_spawnerEggsList.DestroyEggs(other.gameObject, 1f);
 			_spawnerManager.EggsSpwanCoolDown *= 1.15f;
 		}
 	}
